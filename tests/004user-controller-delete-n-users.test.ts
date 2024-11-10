@@ -1,12 +1,8 @@
-// tests/api.spec.ts
-import {test, expect} from '@playwright/test';
+import {expect, test} from "@playwright/test";
 import {ApiClient} from "../src/api-client";
-import {STATUS_CODES} from "node:http";
-import {StatusCodes} from "http-status-codes";
 
 let baseURL: string = 'http://localhost:3000/users';
 let userID: number;
-
 
 test.beforeEach(async ({ request }) => {
     // get all users
@@ -42,12 +38,32 @@ test.beforeEach(async ({ request }) => {
     expect(responseBodyEmpty).toBe('[]');
 })
 
+test('DELETE n users', async ({request}) => {
+    const apiClient = await ApiClient.getInstance(request)
+    const usersCount = await apiClient.createUsers(5)
+    let userIDs = [];
+    const response = await request.get(`${baseURL}`);
+    const responseBody = await response.json()
 
-    test('POST create n users', async ({request}) => {
-        const apiClient = await ApiClient.getInstance(request)
-        const usersCount = await apiClient.createUsers(5)
-        const response = await request.get(`${baseURL}`);
-        const responseBody = await response.json()
-        let numberOfObject = responseBody.length
-        expect(numberOfObject).toBe(5)
-    });
+    // get the number of objects in the array returned
+
+    const numberOfObjects = responseBody.length;
+    // loop through all users and store their ID in an array
+    for (let i = 0; i < usersCount; i++) {
+        // get user ID from the response
+        let userID = responseBody[i].id;
+        // push is used to add elements to the end of an array
+        userIDs.push(userID);
+    }
+
+    for (let i = 0; i < numberOfObjects; i++) {
+        // delete user by id
+        let response = await request.delete(`${baseURL}/${userIDs[i]}`);
+        // validate the response status code
+    }
+
+    const expectResponse = await request.get(`${baseURL}`);
+    const expectResponseBody = await expectResponse.json()
+
+    expect(expectResponseBody).toStrictEqual([])
+});

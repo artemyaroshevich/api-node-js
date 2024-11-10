@@ -31,4 +31,4 @@ jobs:
             up-flags: -d
 
       - name: Run tests
-        run: npx playwright test 001-user-controller-empty-result.test.ts 002user-controller-check-one-user.test.ts 003user-controller-check-a-lot-of.test.ts
+        run: npx playwright test 001-user-controller-empty-result.test.ts 002user-controller-check-one-user.test.ts 003user-controller-check-a-lot-of.test.ts 004user-controller-delete-n-users.test.ts
