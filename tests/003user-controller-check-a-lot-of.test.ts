@@ -42,20 +42,19 @@ test.beforeEach(async ({ request }) => {
     expect(responseBodyEmpty).toBe('[]');
 })
 
-test.describe('Check for five Users management API', () => {
 
     test('POST create n users', async ({request}) => {
         const apiClient = await ApiClient.getInstance(request)
-        const usersCount = await apiClient.createUsers(3)
+        const usersCount = await apiClient.createUsers(5)
         const response = await request.get(`${baseURL}`);
         const responseBody = await response.json()
         let numberOfObject = responseBody.length
-        expect(numberOfObject).toBe(3)
+        expect(numberOfObject).toBe(5)
     });
 
     test('DELETE n users', async ({request}) => {
         const apiClient = await ApiClient.getInstance(request)
-        const usersCount = await apiClient.createUsers(3)
+        const usersCount = await apiClient.createUsers(5)
         let userIDs = [];
         const response = await request.get(`${baseURL}`);
         const responseBody = await response.json()
@@ -82,4 +81,3 @@ test.describe('Check for five Users management API', () => {
 
         expect(expectResponseBody).toStrictEqual([])
     });
-});
