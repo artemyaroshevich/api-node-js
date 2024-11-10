@@ -14,12 +14,12 @@ POST http://localhost:3000/users
 ###
 
 # curl -X GET http://localhost:3000/users/:id
-GET http://localhost:3000/users/95
+GET http://localhost:3000/users/9
 
 ###
 
 # curl -X DELETE http://localhost:3000/users/:id
-DELETE http://localhost:3000/users/95
+DELETE http://localhost:3000/users/3
 
 ###
 
