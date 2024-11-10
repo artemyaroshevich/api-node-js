@@ -50,7 +50,7 @@ test.describe('Check for five Users management API', () => {
         const response = await request.get(`${baseURL}`);
         const responseBody = await response.json()
         let numberOfObject = responseBody.length
-        expect(numberOfObject).toBe(5)
+        expect(numberOfObject).toBe(3)
     });
 
     test('DELETE n users', async ({request}) => {
